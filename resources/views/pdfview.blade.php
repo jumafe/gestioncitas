@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="container">
-	<a href="{{ route('generate-pdf',['download'=>'pdf']) }}">Download PDF</a>
+	<a href="{{ route('generate-pdf',['download'=>'pdf']) }}">Bajar PDF</a>
 	
 	<table class="table table-bordered">
 		<thead>
