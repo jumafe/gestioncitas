@@ -104,7 +104,16 @@ class PacienteController extends Controller
         $pacientes->telefono2=$request->get('telefono2');
         $pacientes->fnacimiento=$request->get('fnacimiento');
         $pacientes->email=$request->get('email');
-        $pacientes->osocial=$request->get('osocial');
+
+        if ($request->get('osocial')==null)
+        {             
+            $pa = 55; //"sin obra social"
+            $pacientes->osocial=$pa;
+        } 
+        else
+        { $pacientes->osocial=$request->get('osocial');
+        }       
+        
         $pacientes->plan=$request->get('plan');
         $pacientes->nrosocial=$request->get('nrosocial');
         $pacientes->domicilio=$request->get('domicilio');
@@ -167,7 +176,18 @@ class PacienteController extends Controller
         $pacientes->telefono2=$request->get('telefono2');
         $pacientes->fnacimiento=$request->get('fnacimiento');
         $pacientes->email=$request->get('email');
-        $pacientes->osocial=$request->get('osocial');
+
+        if ($request->get('osocial')==null)
+        {             
+            $pa = 55; //"sin obra social"
+            $pacientes->osocial=$pa;
+        } 
+        else
+        { $pacientes->osocial=$request->get('osocial');
+        }       
+
+
+        
         $pacientes->plan=$request->get('plan');
         $pacientes->nrosocial=$request->get('nrosocial');
         $pacientes->domicilio=$request->get('domicilio');
