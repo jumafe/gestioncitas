@@ -9,8 +9,12 @@
 @section('content')
     
 
+@foreach ($historiaclinicas as $historiaclinica) 
+    <a href="historiaclinica/{{$historiaclinica->idpaciente}}" class="btn btn-primary btn-sm btn-danger"> ALTA </a>
+    @break; 
+@endforeach
 
-<a href="historiaclinica/create" class="btn btn-primary btn-sm btn-danger"> ALTA </a>
+
 </br>
 </br>
 <table id="historiaclinica" class="table table-striped shadow-lg mt-4" style="width:100%">
@@ -18,11 +22,9 @@
 <tr>
 <th scope="col">id</th>
   <th scope="col">dia</th>
-  <th scope="col">paciente</th> 
-  <th scope="col">especialidad</th>
-  <th scope="col">profesional</th>
- 
-  <th scope="col">Acciones</th>
+  <th scope="col">profesional</th> 
+  <th scope="col">observacion</th>
+  <th scope="col">diagnostico</th>
   </tr>
   </thead>
   <tbody>
@@ -31,24 +33,10 @@
   <tr>  
   <td>{{$historiaclinica->id}}</td>
   <td>{{$historiaclinica->dia}}</td>
-  <td>{{$historiaclinica->paciente}}</td>  
-  <td>{{$historiaclinica->especialidad}}</td>
-  <td>{{$historiaclinica->profesional}}</td>
-   
-   
-  <td>
-  <form action="{{ route('historiaclinica.destroy',$historiaclinica->id) }}" method="POST"  onsubmit="return confirmarEliminar()">
-          <a href="/historiaclinica/{{$historiaclinica->id}}/edit" class="btn btn-primary btn-sm">Editar</a>         
-          <a href="/historiaclinica/{{$historiaclinica->id}}/" class="btn btn-primary btn-success btn-sm">Ver</a>
-              @csrf
-              @method('DELETE')
-          <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-        
-        </a>
-          
-         </form> 
-         </td>   
-    </tr>
+  <td>{{$historiaclinica->profesional}}</td>  
+  <td>{{$historiaclinica->observacion}}</td>
+  <td>{{$historiaclinica->diagnostico}}</td>
+  </tr>
   @endforeach
   </tbody>
 </table>
@@ -75,6 +63,8 @@ $(document).ready(function() {
         "scrollY": false,
         //Esto sirve que se auto ajuste la tabla al aplicar un filtro
          "scrollCollapse": false,
+         "ordering": false,
+         "lengthMenu": [[50, -1], [50, "All"]],
      
         language: {
             "decimal": "",
@@ -98,7 +88,7 @@ $(document).ready(function() {
         },
         
         initComplete: function() {
-            this.api().columns([3,4]).every(function() {
+            this.api().columns([2]).every(function() {
                 var column = this;
 
                 var select = $('<select><option value=""></option></select>')

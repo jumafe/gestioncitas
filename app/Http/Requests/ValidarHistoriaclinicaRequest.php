@@ -26,9 +26,8 @@ class ValidarHistoriaclinicaRequest extends FormRequest
         return [
             'dia'  => 'required|after_or_equal:dia',
             'profesional'    => 'required|integer|not_in:0',
-            'paciente'    => 'required|integer|not_in:0',
             'especialidad'    => 'required|integer|not_in:0',
-            'diagnostico'    => 'required|min:1|max:50',
+            'observacion'    => 'required|min:1|max:50',
         ];
     }
 
@@ -39,7 +38,8 @@ class ValidarHistoriaclinicaRequest extends FormRequest
             'profesional'  => 'campo profesional',
             'paciente'  => 'campo paciente',
             'especialidad'  => 'campo especialidad',
-            'diagnostico'    => 'campo diagnostico',
+            'observacion'  => 'campo observacion',
+            
             
         ];
     
@@ -50,13 +50,9 @@ class ValidarHistoriaclinicaRequest extends FormRequest
     return [
         'dia.required'   => 'El :attribute es obligatorio.',       
         'profesional.required'   => 'El :attribute es obligatorio.',
-        'paciente.required'   => 'El :attribute es obligatorio.',
         'especialidad.required'   => 'El :attribute es obligatorio.',
-        'diagnostico.required'   => 'El :attribute es obligatorio.',
-        'diagonostico.min'        => 'El :attribute debe contener mas de una letra.',
-        'diagnostico.max'        => 'El :attribute debe contener max 50 letras.',
+        'observacion.required'   => 'El :attribute es observacion.',
         
- 
     ];
     }
 }
