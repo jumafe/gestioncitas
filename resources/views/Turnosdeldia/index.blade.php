@@ -44,12 +44,8 @@
     <form action="{{ route('turnosdeldia.update',$turno->id) }}" method="POST">
     @csrf    
     @method('PUT')
-          
           <button type="submit" class="btn btn-primary btn-success btn-sm" tabindex="1">Presente</button>
      </form> 
-
-        
-
          </td>   
     </tr>
   @endforeach

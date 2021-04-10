@@ -9,25 +9,36 @@
 
 @section('content')
 
+<table id="profesionales" class="table table-striped shadow-lg mt-4" style="width:100%">
+<thead class="bg-primary text-white">
+<tr>
+<th scope="col">id</th>
+  <th scope="col">apellido</th>
+  <th scope="col">nombre</th>
+  
+  <th scope="col">Acciones</th>
+  </tr>
+  </thead>
+  <tbody>
+  @foreach ($profesionales as $profesionales)
+  <tr>  
+  <td>{{$profesionales->id}}</td>
+    <td>{{$profesionales->apellido}}</td>
+    <td>{{$profesionales->nombre}}</td>
+    
+    <td>
 
-<form name="fvalida" action="turno" method="GET"  onsubmit="return valida_envia(this)"  >
-    @csrf
+  <form name="" action="turno" method="GET" >
+    @csrf 
+  <button type="submit" name="profesional" value="{{$profesionales->id}}" class="btn btn-primary btn-sm" tabindex="1">Agenda</button>     
+  <a href="turno/{{$profesionales->id}}" class="btn btn-primary btn-sm btn-danger"> ALTA </a>
+  </form>
+  </td>   
+  </tr>
+  @endforeach
+  </tbody>
+</table>
 
-    <div class="form-group">
-              <label for="">Profesional:</label>
-              <select class="form-control" tabindex="1" name="profesional" aria-label="Default select example">
-              <option value="0">--Seleccione profesional--</option>
-                @foreach($profesionales as $profesional)            
-                <option value="{{$profesional->id}}">{{$profesional->apellido}}</option>
-                @endforeach
-            </select>
-        </div>  
- 
- 
-  <a href="turno/create" class="btn btn-primary btn-sm btn-danger"> ALTA </a>
- <input name="accion" value="Buscar" type="submit" class="btn btn-primary btn-sm" tabindex="2"> </input>
- 
-</form>
 @stop
 
 @section('css')
@@ -40,7 +51,18 @@
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
 
+
+
 <script>
+$(document).ready(function() {
+    $('#profesionales').DataTable({
+        "lengthMenu": [ [50, -1], [50, "All"] ]});
+    
+} );
+</script>
+
+
+<!-- <script>
 function valida_envia()
 {
     if (document.fvalida.profesional.selectedIndex==0){
@@ -49,7 +71,7 @@ function valida_envia()
       return false;
     }
 }
-</script>
+</script> -->
 
     
 @stop

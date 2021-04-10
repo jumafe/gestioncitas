@@ -37,34 +37,56 @@ class TurnoController extends Controller
 
     {
 
-        if ($request->input("accion") == "Buscar") {
+        // if ($request->input("accion") == "Buscar") {
        
-            $profe = $request->get('profesional');
+        //     $profe = $request->get('profesional');
      
-            $_SESSION['profe'] = $profe;
+        //     $_SESSION['profe'] = $profe;
 
-        }
+        // }
 
       
-      $turnos = DB::table('vturnosfuturos') 
-       ->where('profesional', $_SESSION['profe'])
-       ->get();
+    //   $turnos = DB::table('vturnosfuturos') 
+    //    ->where('profesional', $_SESSION['profe'])
+    //    ->get();
 
-       $tdiahora = DB::table('tdiahoras') 
-       ->select(DB::raw('case dia
-                        when 7 then "Domingo"
-                        When 1 then "Lunes"
-                        When 2 then "Martes"
-                        When 3 then "Miércoles"
-                        When 4 then "Jueves"
-                        When 5 then "Viernes"
-                        When 6 then "Sábado"
-                        end as dias'),'horainicio','horafin','dia')
-       ->orderBy('dia','asc')
-       ->where('profesional','=',$_SESSION['profe'])
-       ->get();
+    //    $tdiahora = DB::table('tdiahoras') 
+    //    ->select(DB::raw('case dia
+    //                     when 7 then "Domingo"
+    //                     When 1 then "Lunes"
+    //                     When 2 then "Martes"
+    //                     When 3 then "Miércoles"
+    //                     When 4 then "Jueves"
+    //                     When 5 then "Viernes"
+    //                     When 6 then "Sábado"
+    //                     end as dias'),'horainicio','horafin','dia')
+    //    ->orderBy('dia','asc')
+    //    ->where('profesional','=',$_SESSION['profe'])
+    //    ->get();
+
+    if ($request->input("accion") != null) {
+        $this->create($request);
+         }
+
+    $turnos = DB::table('vturnosfuturos') 
+    ->where('profesional', $request->get('profesional'))
+    ->get();
+
+    $tdiahora = DB::table('tdiahoras') 
+    ->select(DB::raw('case dia
+                     when 7 then "Domingo"
+                     When 1 then "Lunes"
+                     When 2 then "Martes"
+                     When 3 then "Miércoles"
+                     When 4 then "Jueves"
+                     When 5 then "Viernes"
+                     When 6 then "Sábado"
+                     end as dias'),'horainicio','horafin','dia')
+    ->orderBy('dia','asc')
+    ->where('profesional','=',$request->get('profesional'))
+    ->get();
       
-        return view('turno.index', compact('turnos','tdiahora'));
+      return view('turno.index', compact('turnos','tdiahora'));
         
 
      }
@@ -75,13 +97,15 @@ class TurnoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
         
+        //
+       // dd('entre');
        // $profesionales = Profesionales::all();
         $profesionales = DB::table('profesionales') 
-        ->where('id', $_SESSION['profe'])
+        ->where('id', $request->get('accion'))
         ->get();
  
         
@@ -121,7 +145,7 @@ class TurnoController extends Controller
         //     }  
         //     }
        // }
-
+      
         return view('turno.create', compact('profesionales', 'tratamiento','paciente'));
 
     }
@@ -281,9 +305,55 @@ class TurnoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id) //es para el boton alta create
     {
+          
         //
+      
+       // $profesionales = Profesionales::all();
+       $profesionales = DB::table('profesionales') 
+       ->where('id', $id)
+       ->get();
+
+       
+       //$paciente=Paciente::all();
+       // $paciente = DB::table('pacientes')
+       // ->select('id',DB::raw('concat(apellido," ",nombre,"-",dni) as apellido'))
+       // ->orderBy('apellido', 'asc')
+       // ->get();
+
+       $paciente = DB::table('pacientes')
+       ->select('id','apellido', 'nombre')
+       ->orderBy('apellido', 'asc')
+       ->get();
+
+   
+       //$tratamiento = Tratamiento::where('estado','=','Activo')->get();
+
+       $tratamiento = DB::table('tratamientos')
+                   ->orderBy('descripcion', 'asc')
+                   ->where('estado','=','Activo')
+                   ->get();
+
+       //$proftrat = Profesionales_tratamiento::all();
+                      
+       // foreach ($profesionales as $profesional) {
+       //   foreach ($proftrat as $proftrat) {
+       //     foreach ($tratamiento as $tratamiento) {
+       
+              
+       //     if ($profesional->id==$proftrat->profesionales_id) {
+          
+       //     if ($tratamiento->id==$proftrat->tratamiento_id) {
+       //         echo $tratamiento->descripcion;
+          
+       //     }
+       //     }  
+       //     }  
+       //     }
+      // }
+     
+       return view('turno.create', compact('profesionales', 'tratamiento','paciente'));
     }
 
     /**
@@ -294,31 +364,21 @@ class TurnoController extends Controller
      */
     public function edit($id)
     {
-        //
-
+        
         $turno = Turno::find($id);
 
-        $profesionales = DB::table('profesionales')
-        ->select('id',
-        DB::raw('concat(apellido, " ", nombre) as apellido'))
-        ->Where('estado','=',"Activo")
-        ->orderBy('apellido','asc')
-        ->get();
-       
         $paciente = DB::table('pacientes')
         ->select('id','apellido', 'nombre')
         ->orderBy('apellido', 'asc')
         ->get();
 
-
-                      
+                     
         $tratamiento = DB::table('tratamientos')
         ->orderBy('descripcion', 'asc')
         ->where('estado','=','Activo')
-        ->get();
-        
+        ->get();        
 
-        return view('turno.edit', compact('turno', 'paciente','tratamiento','profesionales'));
+        return view('turno.edit', compact('turno', 'paciente','tratamiento'));
         
     }
 
@@ -333,17 +393,29 @@ class TurnoController extends Controller
     
 public function update(Request $request, $id)
 {
+
+   
         
  if ($request->input("accion") == "B") 
  {
  
         $turno = Turno::find($id);
+
+        if ($turno->tipo == 'Turno')
+        {
+
         $turno->paciente=$request->get('paciente');
         $turno->tratamiento=$request->get('tratamiento');
            
         $turno->save();
         return redirect('/turno');
-                
+        }
+         else
+        { 
+            $turnos = Turno::find($id);        
+            $turnos->delete();
+            return redirect('/turno')->with('message','Eliminado Satisfactoriamente !');
+        }        
  }
  else
  {
@@ -469,7 +541,8 @@ public function update(Request $request, $id)
      */
     public function destroy($id)
     {
-        
+            
+         
     }
    
 }

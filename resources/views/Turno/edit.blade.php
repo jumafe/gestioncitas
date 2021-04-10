@@ -41,9 +41,13 @@
         <div class="form-group">
               <label for="">Paciente:</label>
               <select class="form-control" tabindex="7" name="paciente" aria-label="Default select example">
-              <option selected>--Seleccione Paciente--</option>
+              <option value="">--Seleccione paciente--</option>
                 @foreach($paciente as $paciente)            
-                        <option value={{$paciente->id}} >{{ $paciente->apellido }} {{ $paciente->nombre }}</option>
+                @if (old('paciente')==$paciente->id)
+                        <option value={{$paciente->id}} selected>{{ $paciente->apellido }}{{ $paciente->nombre }}</option>
+                    @else
+                        <option value={{$paciente->id}} >{{ $paciente->apellido }}{{ $paciente->nombre }}</option>
+                    @endif
                 @endforeach
             </select>
         </div> 

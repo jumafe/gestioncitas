@@ -85,7 +85,7 @@ class HistoriaclinicaController extends Controller
 
     }
 
-    public function show($id)
+    public function show($id) //hace el create
     {        
         $profesionales = DB::table('profesionales')
         ->select('id',

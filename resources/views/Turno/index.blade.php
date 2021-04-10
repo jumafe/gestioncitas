@@ -17,7 +17,7 @@
 
 @section('content')
 
-<a href="turno/create" class="btn btn-primary btn-sm btn-danger"> ALTA </a>
+
 </br>
 </br>
 

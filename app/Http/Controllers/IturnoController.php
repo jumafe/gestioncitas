@@ -28,8 +28,7 @@ class IturnoController extends Controller
     {
     
        $profesionales = DB::table('turnos as t')
-       ->select('p.id',
-       DB::raw('concat(p.apellido, "  ", p.nombre) as apellido')) 
+       ->select('p.id','p.apellido', 'p.nombre') 
        ->distinct() 
        ->join('profesionales as p', 't.profesional','=','p.id')
        ->Where('t.dia','>=', NOW())
