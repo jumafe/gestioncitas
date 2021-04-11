@@ -72,21 +72,26 @@ class TurnoController extends Controller
     ->where('profesional', $request->get('profesional'))
     ->get();
 
-    $tdiahora = DB::table('tdiahoras') 
-    ->select(DB::raw('case dia
-                     when 7 then "Domingo"
-                     When 1 then "Lunes"
-                     When 2 then "Martes"
-                     When 3 then "Miércoles"
-                     When 4 then "Jueves"
-                     When 5 then "Viernes"
-                     When 6 then "Sábado"
-                     end as dias'),'horainicio','horafin','dia')
-    ->orderBy('dia','asc')
-    ->where('profesional','=',$request->get('profesional'))
+    $libres = DB::table('vturnoslibres')
+    ->select('dia','libres') 
+    ->where('profesional', $request->get('profesional'))
     ->get();
+
+    // $tdiahora = DB::table('tdiahoras') 
+    // ->select(DB::raw('case dia
+    //                  when 7 then "Domingo"
+    //                  When 1 then "Lunes"
+    //                  When 2 then "Martes"
+    //                  When 3 then "Miércoles"
+    //                  When 4 then "Jueves"
+    //                  When 5 then "Viernes"
+    //                  When 6 then "Sábado"
+    //                  end as dias'),'horainicio','horafin','dia')
+    // ->orderBy('dia','asc')
+    // ->where('profesional','=',$request->get('profesional'))
+    // ->get();
       
-      return view('turno.index', compact('turnos','tdiahora'));
+      return view('turno.index', compact('turnos','libres'));
         
 
      }

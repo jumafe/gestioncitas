@@ -31,7 +31,7 @@
   <form name="" action="turno" method="GET" >
     @csrf 
   <button type="submit" name="profesional" value="{{$profesionales->id}}" class="btn btn-primary btn-sm" tabindex="1">Agenda</button>     
-  <a href="turno/{{$profesionales->id}}" class="btn btn-primary btn-sm btn-danger"> ALTA </a>
+  <a href="turno/{{$profesionales->id}}" class="btn btn-primary btn-sm btn-success"> Alta Turno </a>
   </form>
   </td>   
   </tr>

@@ -33,18 +33,29 @@ class PacienteController extends Controller
 
     public function index(Request $request)
     {
-      
-        if ($request->get('paciente')!=0) 
+        if ($request->get('idpaciente')!=0) 
         {   
-        
+            $idpa = $request->get('idpaciente'); 
+  
+            $pacientes = DB::table('pacientes as pa')
+            ->select('pa.id','pa.apellido','pa.nombre','dni','telefono1','telefono2','celular','email')
+            ->where('id','=',$idpa)
+            ->get();  
+            
+        }
+        elseif ($request->get('paciente')!=0) 
+        {   
+            
             $pa = $request->get('paciente'); 
             $_SESSION['ipaciente'] = $pa;
+            $idpa = $request->get('paciente'); 
   
 
             $pacientes = DB::table('pacientes as pa')
             ->select('pa.id','pa.apellido','pa.nombre','dni','telefono1','telefono2','celular','email')
             ->where('apellido','like','%' . $pa . '%')
             ->orwhere('nombre','like','%' . $pa . '%')
+            ->orwhere('id','like','%' . $idpa . '%')
             ->orwhere('dni','like','%' . $pa . '%')
             ->orderBy('pa.apellido','asc')
             ->orderBy('pa.nombre','asc')

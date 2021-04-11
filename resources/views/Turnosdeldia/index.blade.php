@@ -25,7 +25,9 @@
   <th scope="col">tratamiento</th>
   <th scope="col">paciente</th>
   <th scope="col">Llegada</th>
-   <th scope="col">Acciones</th>
+   <th scope="col"></th>
+   <th scope="col"></th>
+   <th scope="col"></th>
   </tr>
   </thead>
   <tbody>
@@ -46,7 +48,21 @@
     @method('PUT')
           <button type="submit" class="btn btn-primary btn-success btn-sm" tabindex="1">Presente</button>
      </form> 
-         </td>   
+     </td>
+     <td>
+     <form action="historiaclinica" method="GET">
+    @csrf 
+     <button type="submit" name="paciente" value="{{$turno->idpaciente}}" class="btn btn-primary btn-sm" tabindex="1">HClinica</button>     
+     </a>
+     </form> 
+     </td>
+     <td>
+     <form action="paciente" method="GET">
+    @csrf 
+     <button type="submit" name="idpaciente" value="{{$turno->idpaciente}}" class="btn btn-primary btn-sm" tabindex="1">Paciente</button>     
+     </a>
+     </form> 
+     </td>   
     </tr>
   @endforeach
   </tbody>

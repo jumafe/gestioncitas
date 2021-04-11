@@ -4,12 +4,15 @@
 
 @section('content_header')
     <h1>Turnos diarios</h1>
-    <table id="diahora" class="table table-striped shadow-lg mt-4" style="width:100%">
-<thead class="bg-primary text-white">
+    <table id="libres" class="table table-striped shadow-lg mt-4" style="width:50%">
+<thead class="">
+<tr height: 10px>
+Turnos libres dentro de los 15 días siguientes a hoy
   </thead>
   <tbody>
-  @foreach ($tdiahora as $tdiahora)
-  <td>{{$tdiahora->dias}}<br> {{$tdiahora->horainicio}}<br> {{$tdiahora->horafin}}</td>
+  @foreach ($libres as $libre)
+  <td>{{$libre->dia}}
+  <p style="color:red;">Total: {{$libre->libres}}</p></td>
   @endforeach
   </tbody>
  </table>  
