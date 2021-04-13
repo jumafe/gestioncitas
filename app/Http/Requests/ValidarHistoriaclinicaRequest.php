@@ -27,7 +27,7 @@ class ValidarHistoriaclinicaRequest extends FormRequest
             'dia'  => 'required|after_or_equal:dia',
             'profesional'    => 'required|integer|not_in:0',
             'especialidad'    => 'required|integer|not_in:0',
-            'observacion'    => 'required|min:1|max:50',
+            'observacion'    => 'required|min:1|max:4000',
         ];
     }
 
