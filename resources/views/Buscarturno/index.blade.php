@@ -27,7 +27,7 @@
 <form action="turnopaciente" method="GET">
     @csrf    
   
-<table id="turnopaciente" class="table table-striped shadow-lg mt-4" style="width:100%">
+<table id="buscarturno" class="table table-striped shadow-lg mt-4" style="width:100%">
 <thead class="bg-primary text-white">
 <tr>
 
@@ -77,7 +77,7 @@
 <script>
 $(document).ready(function() {
     $('#buscarturno').DataTable({
-        "lengthMenu": [ [5, 10, 50, -1], [5, 10, 50, "All"] ]});
+        "lengthMenu": [ [50, -1], [50, "All"] ]});
     
 } );
 </script>

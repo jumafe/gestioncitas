@@ -77,6 +77,11 @@ class TurnoController extends Controller
     ->where('profesional', $request->get('profesional'))
     ->get();
 
+    $profesionales = DB::table('profesionales')
+    ->select('id','apellido','nombre') 
+    ->where('id', $request->get('profesional'))
+    ->get();
+
     // $tdiahora = DB::table('tdiahoras') 
     // ->select(DB::raw('case dia
     //                  when 7 then "Domingo"
@@ -91,7 +96,7 @@ class TurnoController extends Controller
     // ->where('profesional','=',$request->get('profesional'))
     // ->get();
       
-      return view('turno.index', compact('turnos','libres'));
+      return view('turno.index', compact('turnos','libres','profesionales'));
         
 
      }

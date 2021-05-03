@@ -36,6 +36,11 @@ class HistoriaclinicaController extends Controller
             ->Orderby('dia','desc')
             ->get();
 
+            $pacientes = DB::table('pacientes as pa')
+            ->select('pa.id','pa.apellido','pa.nombre','obsclinica')
+            ->where('id',$_SESSION['paciente'])
+            ->get();  
+
         }  else{
 
             $pa = $request->input("paciente");
@@ -46,9 +51,14 @@ class HistoriaclinicaController extends Controller
             ->Orderby('dia','desc')
             //->where('idpaciente',$_SESSION['paciente'])
             ->get();
+
+            $pacientes = DB::table('pacientes as pa')
+            ->select('pa.id','pa.apellido','pa.nombre','obsclinica')
+            ->where('id',$pa)
+            ->get();  
         }
           
-            return view('historiaclinica.index', compact('historiaclinicas'));
+            return view('historiaclinica.index', compact('historiaclinicas','pacientes'));
               
     }
 
@@ -157,21 +167,21 @@ class HistoriaclinicaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function edit($id)
-    // {
-    //     $historiaclinicas = Historiaclinica::find($id);
+    public function edit($id)
+    {
+        $historiaclinicas = Historiaclinica::find($id);
         
-    //     $profesionales = DB::table('profesionales')
-    //     ->select('id',
-    //     DB::raw('concat(apellido, " ", nombre) as apellido'))
-    //     ->Where('estado','=',"Activo")
-    //     ->orderBy('apellido','asc')
-    //     ->get();
+        $profesionales = DB::table('profesionales')
+        ->select('id',
+        DB::raw('concat(apellido, " ", nombre) as apellido'))
+        ->Where('estado','=',"Activo")
+        ->orderBy('apellido','asc')
+        ->get();
         
-    //     $especialidades = Especialidades::where('estado','=','Activo')->get();
-    //     $pacientes = Paciente::all();
-    //     return view('historiaclinica.edit', compact('historiaclinicas','profesionales', 'especialidades','pacientes'));
-    // }
+        $especialidades = Especialidades::where('estado','=','Activo')->get();
+        $pacientes = Paciente::all();
+        return view('historiaclinica.edit', compact('historiaclinicas','profesionales', 'especialidades','pacientes'));
+    }
 
     // /**
     //  * Update the specified resource in storage.
@@ -180,25 +190,23 @@ class HistoriaclinicaController extends Controller
     //  * @param  int  $id
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function update(ValidarHistoriaclinicaRequest $request, $id)
-    // {
+    public function update(ValidarHistoriaclinicaRequest $request, $id)
+    {
 
-    //     $historiaclinica = Historiaclinica::find($id);
+        $historiaclinica = Historiaclinica::find($id);
              
-    //     $historiaclinica->dia=$request->get('dia');
-    //     $historiaclinica->profesional=$request->get('profesional');
-    //     $historiaclinica->paciente=$request->get('paciente');
-    //     $historiaclinica->especialidad=$request->get('especialidad');
-    //     $historiaclinica->diagnostico=$request->get('diagnostico');
-    //     $historiaclinica->observacion=$request->get('observacion');
+        $historiaclinica->dia=$request->get('dia');
+        $historiaclinica->profesional=$request->get('profesional');
+        $historiaclinica->paciente=$request->get('paciente');
+        $historiaclinica->especialidad=$request->get('especialidad');
+        $historiaclinica->diagnostico=$request->get('diagnostico');
+        $historiaclinica->observacion=$request->get('observacion');
                            
-    //     $historiaclinica->save();
+        $historiaclinica->save();
 
-    //     return redirect('/historiaclinica')->with('message','Actualizado Satisfactoriamente !');
+        return redirect('/historiaclinica')->with('message','Actualizado Satisfactoriamente !');
       
-                  
-
-    // }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -206,11 +214,11 @@ class HistoriaclinicaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     $historiaclinicas = Historiaclinica::find($id);        
-    //     $historiaclinicas->delete();
+    public function destroy($id)
+    {
+        $historiaclinicas = Historiaclinica::find($id);        
+        $historiaclinicas->delete();
 
-    //     return redirect('/historiaclinica')->with('message','Eliminado Satisfactoriamente !');
-    // }
+        return redirect('/historiaclinica')->with('message','Eliminado Satisfactoriamente !');
+    }
 }

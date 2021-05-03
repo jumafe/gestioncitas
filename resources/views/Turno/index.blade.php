@@ -19,7 +19,10 @@ Turnos libres dentro de los 15 días siguientes a hoy
 @stop
 
 @section('content')
-
+@foreach ($profesionales as $profesional)
+  <a href="turno/{{$profesional->id}}" class="btn btn-primary btn-sm btn-danger"> Alta Turno </a>
+  {{$profesional->apellido}}  {{$profesional->nombre}}
+  @endforeach
 
 </br>
 </br>
@@ -51,7 +54,9 @@ Turnos libres dentro de los 15 días siguientes a hoy
                 </div>
             @endif
 @endif
-  
+
+
+
 <table id="turno" class="table table-striped shadow-lg mt-4" style="width:100%">
 <thead class="bg-primary text-white">
 <tr height: 50px>

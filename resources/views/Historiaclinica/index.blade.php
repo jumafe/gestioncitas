@@ -4,6 +4,19 @@
 
 @section('content_header')
     <h1>Historias clínicas</h1>
+    <table id="libres" class="table table-striped shadow-lg mt-4" style="width:100%">
+<thead class="">
+<tr>
+  </thead>
+  <tbody>
+  @foreach ($pacientes as $paciente)
+  <td>{{$paciente->nombre}} {{$paciente->apellido}}</td>
+    <td>{{$paciente->obsclinica}}</td>
+  
+  @endforeach
+  </tbody>
+ </table>  
+
 @stop
 
 @section('content')
@@ -25,6 +38,7 @@
   <th scope="col">profesional</th> 
   <th scope="col">observacion</th>
   <th scope="col">diagnostico</th>
+  <th scope="col">Acciones</th>
   </tr>
   </thead>
   <tbody>
@@ -36,7 +50,20 @@
   <td>{{$historiaclinica->profesional}}</td>  
   <td>{{$historiaclinica->observacion}}</td>
   <td>{{$historiaclinica->diagnostico}}</td>
-  </tr>
+  
+     
+  <td>
+  <form action="{{ route('historiaclinica.destroy',$historiaclinica->id) }}" method="POST"  onsubmit="return confirmarEliminar()">
+          <a href="/historiaclinica/{{$historiaclinica->id}}/edit" class="btn btn-primary btn-sm">Editar</a>         
+              @csrf
+              @method('DELETE')
+          <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+        
+        </a>
+          
+         </form> 
+         </td>   
+    </tr>
   @endforeach
   </tbody>
 </table>

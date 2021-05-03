@@ -27,7 +27,7 @@ class TurnodeldiaController extends Controller
        
         $turnos = DB::table('vturnos')
         ->select('id','dia','apellido','idpaciente','paciente','tratamiento','hora','llegada')
-        ->wherenotnull('paciente')
+        //->wherenotnull('paciente')
         ->orderBy('profesional', 'asc')
         ->orderBy('dia', 'asc')
         ->orderBy('hora', 'asc')

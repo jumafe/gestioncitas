@@ -58,7 +58,7 @@
               <label for="">Profesional:</label>
               <h>Sólo se mostrarán los profesionales con calendario generado</h>
               <select class="form-control" tabindex="5" name="profesional2" aria-label="Default select example">
-              <option value="0">--Seleccione profesional--</option>
+              <option value="0">--Todos--</option>
                 @foreach($profesionales as $profesional)            
                 <option value="{{$profesional->id}}">{{$profesional->apellido}}</option>
                 @endforeach
@@ -133,7 +133,7 @@ function valida_enviapac()
 <script>
 function valida_enviarango()
 {
-    if (document.fvalidaRango.profesional2.selectedIndex==0){
+    if (document.fvalidaRango.profesional2.value.length==0){
       alert("Seleccione el profesional a consultar.")
       document.fvalidaRango.profesional2.focus()
       return false;

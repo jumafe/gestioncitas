@@ -75,7 +75,7 @@
 <script>
 $(document).ready(function() {
     $('#historiaclinica').DataTable({
-        "lengthMenu": [ [5, 10, 50, -1], [5, 10, 50, "All"] ]});
+        "lengthMenu": [ [50, -1], [50, "All"] ]});
     
 } );
 </script>

@@ -92,6 +92,7 @@ $(document).ready(function() {
         //Esto sirve que se auto ajuste la tabla al aplicar un filtro
          "scrollCollapse": false,
          "ordering": false,
+         "lengthMenu": [ [100, -1], [100, "All"] ],
      
         language: {
             "decimal": "",
